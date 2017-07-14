@@ -5,11 +5,11 @@
             <img src="../assets/logo.png" alt="">
             <div class="head-nav">
                 <ul class="nav-list">
-                    <li>登录</li>
+                    <li @click="logOpen">登录</li>
                     <li class="nav-pile">|</li>
-                    <li>注册</li>
+                    <li @click="regOpen">注册</li>
                     <li class="nav-pile">|</li>
-                    <li>关于</li>
+                    <li @click="aboutOpen">关于</li>
                 </ul>
             </div>
         </div>
@@ -22,15 +22,56 @@
     <div class="app-foot">
         <p>2017 XY</p>
     </div>
+    <myDialog :is-show="isShowLog" @on-close="close('isShowLog')">
+      <log-form @has-log="onSuccessLog"></log-form>
+    </myDialog>
+
+    <myDialog :is-show="isShowReg" @on-close="close('isShowReg')">
+      <reg-form></reg-form>
+    </myDialog>
+
+    <myDialog :is-show="isShowAbout" @on-close="close('isShowAbout')">
+      <p>about</p>
+    </myDialog>
   </div>
 </template>
 
 <script>
+import dialog from './dialog'
+import logForm from './logForm'
+import regForm from './regForm'
 export default {
   name: 'Layout',
+  components: {
+    myDialog: dialog,
+    logForm,
+    regForm
+  },
   data() {
     return {
-
+      isShow: false,
+      isShowAbout: false,
+      isShowReg: false,
+      isShowLog: false
+    }
+  },
+  methods: {
+    close (arr) {
+        this[arr] =  false
+    },
+    logOpen () {
+        this.isShowLog =  true
+    },
+    regOpen () {
+        this.isShowReg =  true
+    },
+    aboutOpen () {
+        this.isShowAbout =  true
+    },
+    onSuccessLog (data) {
+      console.log(data)
+      this.close ('isShowLog')
+      this.username = data.username
     }
   }
 }
@@ -149,6 +190,7 @@ body {
 .button:hover {
   background: #4fc08d;
 }
+/*相同的样式，统一写在父模块中*/
 .g-form {
 
 }

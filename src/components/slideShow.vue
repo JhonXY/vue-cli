@@ -2,6 +2,7 @@
   <div class="slide-show" @mouseover="clearInv" @mouseout="runInv">
     <div class="slide-img">
       <a :href="slides[nowIndex].href">
+        <!-- 两张图片同时存在实现的过渡动画 -->
         <transition name="slide-trans">
           <img v-if="isShow" :src="slides[nowIndex].src">
         </transition>
@@ -26,13 +27,15 @@
 <script>
 export default {
   props: {
+    // 定义接收的属性
     slides: {
       type: Array,
       default: []
     },
+    // 幻灯片切换速度
     inv: {
       type: Number,
-      default: 1000
+      default: 5000
     }
   },
   data () {
@@ -42,13 +45,14 @@ export default {
     }
   },
   computed: {
+    // 上页下页使用计算属性
     prevIndex () {
       if (this.nowIndex === 0) {
         return this.slides.length - 1
       }
       else {
         return this.nowIndex - 1
-      } 
+      }
     },
     nextIndex () {
       if (this.nowIndex === this.slides.length - 1) {
@@ -65,17 +69,20 @@ export default {
       setTimeout(() => {
         this.isShow = true
         this.nowIndex = index
-      }, 10)
+      }, 5000)
     },
+    // 设置轮播
     runInv () {
       this.invId = setInterval(() => {
         this.goto(this.nextIndex)
       }, this.inv)
     },
+    // 清除轮播
     clearInv () {
       clearInterval(this.invId)
     }
   },
+  // 渲染完毕后自动运行
   mounted () {
     this.runInv();
   }

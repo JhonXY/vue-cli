@@ -60,25 +60,25 @@ export default {
   },
   data() {
     return {
-      invTime: 2000,
+      invTime: 5000,
       slides: [{
           src: require('../assets/slideShow/pic1.jpg'),
-          title: 'xxx1',
+          title: '第一张',
           href: 'detail/analysis'
         },
         {
           src: require('../assets/slideShow/pic2.jpg'),
-          title: 'xxx2',
+          title: '第二张',
           href: 'detail/count'
         },
         {
           src: require('../assets/slideShow/pic3.jpg'),
-          title: 'xxx3',
+          title: '第三张',
           href: 'http://xxx.xxx.com'
         },
         {
           src: require('../assets/slideShow/pic4.jpg'),
-          title: 'xxx4',
+          title: '第四张',
           href: 'detail/forecast'
         }
       ],
@@ -111,8 +111,7 @@ export default {
           saleout: false
         }
       ],
-      newsList: [
-      ],
+      newsList: [],
       productList: {
         pc: {
           title: 'pc产品',
@@ -159,6 +158,8 @@ export default {
         }
       }
     }
+  },
+  methods: {
   }
 }
 </script>
