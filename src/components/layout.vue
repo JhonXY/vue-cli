@@ -5,10 +5,13 @@
             <img src="../assets/logo.png" alt="">
             <div class="head-nav">
                 <ul class="nav-list">
-                    <li @click="logOpen">登录</li>
+                    <li>{{username}}</li>
+                    <li v-if="username != '' " class="nav-pile">|</li>
+                    <li v-if="username != '' " @click="quit">退出</li>
+                    <li v-if="username === ''" @click="logOpen">登录</li>
                     <li class="nav-pile">|</li>
-                    <li @click="regOpen">注册</li>
-                    <li class="nav-pile">|</li>
+                    <li v-if="username === ''" @click="regOpen">注册</li>
+                    <li v-if="username === ''" class="nav-pile">|</li>
                     <li @click="aboutOpen">关于</li>
                 </ul>
             </div>
@@ -52,7 +55,8 @@ export default {
       isShow: false,
       isShowAbout: false,
       isShowReg: false,
-      isShowLog: false
+      isShowLog: false,
+      username: ''
     }
   },
   methods: {
@@ -68,6 +72,7 @@ export default {
     aboutOpen () {
         this.isShowAbout =  true
     },
+    // 验证通过，子组件使用事件驱动通知父组件
     onSuccessLog (data) {
       console.log(data)
       this.close ('isShowLog')
